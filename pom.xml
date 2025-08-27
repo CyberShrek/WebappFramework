@@ -14,6 +14,10 @@
     <version>SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <contextRoot>${project.name}</contextRoot>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.vniizht</groupId>
@@ -33,8 +37,34 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-jboss-web</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/jboss-web</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/../WebappTemplate/src/main/webapp/WEB-INF</directory>
+                                    <includes>
+                                        <include>jboss-web.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
+                    <warName>${project.name}</warName>
                     <overlays>
                         <overlay>
                             <groupId>org.vniizht</groupId>
@@ -43,11 +73,8 @@
                     </overlays>
                     <webResources>
                         <resource>
-                            <directory>src/main/webapp</directory>
-                            <filtering>true</filtering>
-                            <includes>
-                                <include>WEB-INF/jboss-web.xml</include>
-                            </includes>
+                            <directory>${project.build.directory}/jboss-web</directory>
+                            <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
                 </configuration>
