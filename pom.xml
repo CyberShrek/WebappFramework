@@ -76,6 +76,13 @@
                             <directory>${project.build.directory}/jboss-web</directory>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                            <targetPath>/resources</targetPath>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
