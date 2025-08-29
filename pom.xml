@@ -7,11 +7,10 @@
     <parent>
         <groupId>org.vniizht</groupId>
         <artifactId>WebappCoreParent</artifactId>
-        <version>SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
     <artifactId>WebappFramework</artifactId>
-    <version>SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <properties>
@@ -22,13 +21,13 @@
         <dependency>
             <groupId>org.vniizht</groupId>
             <artifactId>WebappCore</artifactId>
-            <version>SNAPSHOT</version>
+            <version>${project.parent.version}</version>
             <type>war</type>
         </dependency>
         <dependency>
             <groupId>org.vniizht</groupId>
             <artifactId>WebappCore</artifactId>
-            <version>SNAPSHOT</version>
+            <version>${project.parent.version}</version>
             <classifier>classes</classifier>
         </dependency>
     </dependencies>
@@ -38,6 +37,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>copy-jboss-web</id>
@@ -49,7 +49,7 @@
                             <outputDirectory>${project.build.directory}/jboss-web</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>${basedir}/../WebappTemplate/src/main/webapp/WEB-INF</directory>
+                                    <directory>${basedir}/../WebappCore/src/main/webapp/WEB-INF</directory>
                                     <includes>
                                         <include>jboss-web.xml</include>
                                     </includes>
@@ -63,25 +63,19 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>${maven.plugin.version}</version>
                 <configuration>
                     <warName>${project.name}</warName>
                     <overlays>
                         <overlay>
                             <groupId>org.vniizht</groupId>
-                            <artifactId>WebappTemplate</artifactId>
+                            <artifactId>WebappCore</artifactId>
                         </overlay>
                     </overlays>
                     <webResources>
                         <resource>
                             <directory>${project.build.directory}/jboss-web</directory>
                             <targetPath>WEB-INF</targetPath>
-                        </resource>
-                        <resource>
-                            <directory>src/main/resources</directory>
-                            <targetPath>/resources</targetPath>
-                            <includes>
-                                <include>**/*</include>
-                            </includes>
                         </resource>
                     </webResources>
                 </configuration>
