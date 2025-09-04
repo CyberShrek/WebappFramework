@@ -40,22 +40,23 @@
                 <version>${maven.plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>copy-jboss-web</id>
+                        <id>copy-jboss-config</id>
                         <phase>process-resources</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/jboss-web</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/../WebappCore/src/main/webapp/WEB-INF</directory>
                                     <includes>
+                                        <include>jboss-deployment-structure.xml</include>
                                         <include>jboss-web.xml</include>
                                     </includes>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>
+                            <outputDirectory>${project.build.directory}/jboss-config</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -74,7 +75,7 @@
                     </overlays>
                     <webResources>
                         <resource>
-                            <directory>${project.build.directory}/jboss-web</directory>
+                            <directory>${project.build.directory}/jboss-config</directory>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                         <resource>
