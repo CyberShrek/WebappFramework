@@ -78,22 +78,9 @@
                             <directory>${project.build.directory}/jboss-config</directory>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
-                        <resource>
-                            <directory>src/main/resources/public</directory>
-                            <targetPath>WEB-RES</targetPath>
-                        </resource>
                     </webResources>
                 </configuration>
             </plugin>
         </plugins>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <excludes>
-                    <exclude>public/**</exclude>
-                </excludes>
-            </resource>
-        </resources>
     </build>
-
 </project>
