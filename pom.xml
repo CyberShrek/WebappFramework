@@ -124,6 +124,14 @@
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>
+                                org.apache.poi.poi-ooxml:${poi.version},
+                                com.fasterxml.jackson.core.jackson-databind
+                            </Dependencies>
+                        </manifestEntries>
+                    </archive>
                 </configuration>
             </plugin>
         </plugins>
