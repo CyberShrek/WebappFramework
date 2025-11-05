@@ -15,6 +15,7 @@
 
     <properties>
         <contextRoot>${project.name}</contextRoot>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
     </properties>
 
     <dependencies>
@@ -104,6 +105,19 @@
                             </target>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>generate-version-info</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <target>
+                                <echo file="${project.build.directory}/verinfo.txt"
+                                      message="${maven.build.timestamp}.${project.version}"/>
+                            </target>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
@@ -121,6 +135,13 @@
                     <webResources>
                         <resource>
                             <directory>${project.build.directory}/generated-jboss-config</directory>
+                            <targetPath>WEB-INF</targetPath>
+                        </resource>
+                        <resource>
+                            <directory>${project.build.directory}</directory>
+                            <includes>
+                                <include>verinfo.txt</include>
+                            </includes>
                             <targetPath>WEB-INF</targetPath>
                         </resource>
                     </webResources>
